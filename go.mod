@@ -1,3 +1,3 @@
-module github.com/easynet-cn/go-ioc
+module github.com/easynet-cn/go-meituan
 
 go 1.17
