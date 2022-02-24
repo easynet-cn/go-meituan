@@ -1,7 +1,7 @@
 package shangou
 
 //【买赠】批量查询门店买赠活动
-//请求方式：POST
+//请求方式：GET
 //文档地址：https://waimaiopen.meituan.com/api/v1/act/buygifts/list
 //文档地址：https://open-shangou.meituan.com/home/docDetail/251
 type ActBuygiftsListRequest struct {
