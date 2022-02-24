@@ -1,7 +1,7 @@
 package shangou
 
 //【运费满减】查询阶梯满减配送费活动
-//请求方式：POST
+//请求方式：GET
 //请求地址：https://waimaiopen.meituan.com/api/v1/act/full/discount/shippingfee/list
 //文档地址：https://open-shangou.meituan.com/home/docDetail/303
 type ActFullDiscountShippingfeeListRequest struct {
