@@ -1,7 +1,7 @@
 package shangou
 
 //商家确认订单
-//请求方式：POST
+//请求方式：GET
 //请求地址：https://waimaiopen.meituan.com/api/v1/order/confirm
 //文档地址：https://open-shangou.meituan.com/home/docDetail/111
 type OrderConfirmRequest struct {
