@@ -1,6 +1,6 @@
 package order
 
-type EcommerceOrderGetOrderRefundDetailResponseDataItemRefundPartialEstimateCharge struct {
+type RefundPartialEstimateCharge struct {
 	TotalFoodAmount       string `json:"total_food_amount"`       //描述：本次退款商品的总金额，不含包装盒费，单商品总价=商品原价+赠品原价，位元
 	BoxAmount             string `json:"box_amount"`              //描述：本次退款商品包装盒费总价，单位元
 	ActivityPoiAmount     string `json:"activity_poi_amount"`     //描述：本次退款商家活动费用总支出成本，含赠品成本，单位元
