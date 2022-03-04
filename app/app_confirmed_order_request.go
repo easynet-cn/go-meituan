@@ -3,7 +3,7 @@ package app
 //推送已确认订单
 //请求方式：POST
 //文档地址：https://open-shangou.meituan.com/home/docDetail/177
-type AppRecieveConfirmedOrderRequest struct {
+type AppConfirmedOrderRequest struct {
 	OrderId                int64    `url:"order_id"`                 //是否必须：是；描述：订单号，数据库中请用bigint(20)存储此字段。
 	OrderTagList           []int    `url:"order_tag_list"`           //是否必须：是；描述：订单信息，8代表处方药
 	WmOrderIdView          int64    `url:"wm_order_id_view"`         //是否必须：是；描述：订单展示ID，与用户端、商家端订单详情中展示的订单号码一致。数据库中请用bigint(20)存储此字段。

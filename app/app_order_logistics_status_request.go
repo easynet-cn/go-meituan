@@ -3,7 +3,7 @@ package app
 //推送美配/企客订单配送状态
 //请求方式：POST
 //文档地址：https://open-shangou.meituan.com/home/docDetail/171
-type AppRecieveOrderLogisticsStatusRequest struct {
+type AppOrderLogisticsStatusRequest struct {
 	OrderId          int64  `url:"order_id"`          //是否必须：是；描述：订单号，数据库中请用bigint(20)存储此字段。
 	WmOrderIdView    int64  `url:"wm_order_id_view"`  //是否必须：是；描述：订单展示ID，与用户端、商家端订单详情中展示的订单号码一致。数据库中请用bigint(20)存储此字段。
 	LogisticsStatus  int    `url:"logistics_status"`  //是否必须：是；描述：美团配送订单状态code，目前美团配送状态值有：0-配送单发往配送，5-配送侧压单，10-配送单已确认，15-骑手已到店，20-骑手已取货，40-骑手已送达，100-配送单已取消。
