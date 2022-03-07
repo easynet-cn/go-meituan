@@ -1,7 +1,9 @@
 package shipping
 
 //新增/更新特殊时段配送范围
+//请求方式：POST
 //请求地址：https://waimaiopen.meituan.com/api/v1/shipping/spec/save
+//文档地址：https://open-shangou.meituan.com/home/docDetail/268
 type ShippingSpecSaveRequest struct {
 	AppPoiCode                string  `url:"app_poi_code"`                 //是否必须：是；描述：APP方门店id，传商家中台系统里门店的编码，最长不超过128个字符。如商家在操作绑定门店至开放平台应用中时，未绑定三方门店id信息，则默认APP方门店id与美团门店id相同。
 	AppShippingCode           string  `url:"app_shipping_code"`            //是否必须：是；描述：APP方提供的配送范围id；非开放平台接口操作创建的配送范围，无配送范围id。 如一个门店没有配送范围id，且门店只有一个配送范围，此字段可以传1。

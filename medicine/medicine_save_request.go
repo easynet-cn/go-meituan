@@ -1,7 +1,9 @@
 package medicine
 
 //创建药品
+//请求方式：POST
 //请求地址：https://waimaiopen.meituan.com/api/v1/medicine/save
+//文档地址：https://open-shangou.meituan.com/home/docDetail/84
 type MedicineSaveRequest struct {
 	AppPoiCode      string  `url:"app_poi_code"`      //是否必须：是；描述：APP方门店id，即商家中台系统里门店的编码。如商家在操作绑定门店至开放平台应用中时，未绑定三方门店id信息，则默认APP方门店id与美团门店id相同。
 	AppMedicineCode string  `url:"app_medicine_code"` //是否必须：是；描述：APP方药品id，可使用商家中台系统里药品的编码（spu_code值）。 (1) 不同门店之间药品id可以重复，同一门店内药品id不允许重复； (2)字段信息限定长度不超过128个字符。 (3)此字段信息也会默认同步至skuid字段上，即同步至商家端后台药品详情中的“店内码/货号”字段上。
