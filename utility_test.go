@@ -13,7 +13,7 @@ func Test_Sign(t *testing.T) {
 	appPoiCode := "31号测试店"
 	timestamp := int64(1389751221)
 
-	urlValues := Sign(url, appId, secret, timestamp, &GetOrderDaySeqRequest{AppPoiCode: appPoiCode})
+	_, urlValues := Sign(url, appId, secret, timestamp, &GetOrderDaySeqRequest{AppPoiCode: appPoiCode})
 	sig := urlValues.Get("sig")
 
 	if sig != "dbb4d444d68596d03dbcb79a4e4a4e3f" {

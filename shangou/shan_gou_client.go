@@ -1,6 +1,7 @@
 package shangou
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -18,15 +19,15 @@ type ShanGouClient struct {
 func (s *ShanGouClient) DoRequest(requestUrl string, method string, request interface{}) ([]byte, error) {
 	timestamp := time.Now().Unix()
 
-	urlValues := meituan.Sign(requestUrl, s.AppId, s.AppSecret, timestamp, request)
+	url, urlValues := meituan.Sign(requestUrl, s.AppId, s.AppSecret, timestamp, request)
 
 	var resp *http.Response
 	var err error
 
 	if method == "POST" {
-		resp, err = s.HttpClient.PostForm(requestUrl, urlValues)
+		resp, err = s.HttpClient.PostForm(url, urlValues)
 	} else {
-		resp, err = s.HttpClient.Get(urlValues.Encode())
+		resp, err = s.HttpClient.Get(fmt.Sprintf("%s&%s", url, urlValues.Encode()))
 	}
 
 	if err != nil {

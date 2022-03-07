@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func Sign(requestUrl string, appId string, secret string, timestamp int64, o interface{}) url.Values {
+func Sign(requestUrl string, appId string, secret string, timestamp int64, o interface{}) (string, url.Values) {
 	urlValues := url.Values{}
 	sb := new(strings.Builder)
 	fields, params := GetStuctParamMap(o)
@@ -21,9 +21,6 @@ func Sign(requestUrl string, appId string, secret string, timestamp int64, o int
 
 	params["app_id"] = appId
 	params["timestamp"] = timestamp
-
-	urlValues.Set("app_id", appId)
-	urlValues.Set("timestamp", fmt.Sprintf("%v", timestamp))
 
 	sb.WriteString(requestUrl)
 	sb.WriteString("?")
@@ -37,12 +34,12 @@ func Sign(requestUrl string, appId string, secret string, timestamp int64, o int
 		if v.Kind() != reflect.Struct {
 			filedValue := fmt.Sprintf("%v", params[field])
 			sb.WriteString(filedValue)
-			urlValues.Set("field", filedValue)
+			urlValues.Set(field, filedValue)
 		} else {
 			if bytes, err := json.Marshal(params[field]); err == nil {
 				fieldValue := string(bytes)
 				sb.WriteString(fieldValue)
-				urlValues.Set("field", fieldValue)
+				urlValues.Set(field, fieldValue)
 			}
 		}
 	}
@@ -51,9 +48,7 @@ func Sign(requestUrl string, appId string, secret string, timestamp int64, o int
 
 	sig := fmt.Sprintf("%x", md5.Sum([]byte(sb.String())))
 
-	urlValues.Set("sig", sig)
-
-	return urlValues
+	return fmt.Sprintf("%s?app_id=%s&timestamp=%v&sig=%s", requestUrl, appId, timestamp, sig), urlValues
 }
 
 func GetStuctParamMap(o interface{}) ([]string, map[string]interface{}) {
