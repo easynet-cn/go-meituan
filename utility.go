@@ -25,21 +25,31 @@ func Sign(requestUrl string, appId string, secret string, timestamp int64, o int
 	sb.WriteString(requestUrl)
 	sb.WriteString("?")
 
-	for _, field := range fields {
+	for i, field := range fields {
+		if i > 0 {
+			sb.WriteString("&")
+		}
+
 		sb.WriteString(field)
 		sb.WriteString("=")
 
 		v := reflect.TypeOf(params[field])
 
 		if v.Kind() != reflect.Struct {
-			filedValue := fmt.Sprintf("%v", params[field])
-			sb.WriteString(filedValue)
-			urlValues.Set(field, filedValue)
+			fieldValue := fmt.Sprintf("%v", params[field])
+			sb.WriteString(fieldValue)
+
+			if field != "app_id" && field != "timestamp" {
+				urlValues.Set(field, fieldValue)
+			}
 		} else {
 			if bytes, err := json.Marshal(params[field]); err == nil {
 				fieldValue := string(bytes)
 				sb.WriteString(fieldValue)
-				urlValues.Set(field, fieldValue)
+
+				if field != "app_id" && field != "timestamp" {
+					urlValues.Set(field, fieldValue)
+				}
 			}
 		}
 	}
