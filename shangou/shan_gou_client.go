@@ -16,10 +16,10 @@ type ShanGouClient struct {
 	AccessToken string
 }
 
-func (s *ShanGouClient) DoRequest(requestUrl string, method string, request interface{}) ([]byte, error) {
+func (s *ShanGouClient) DoRequest(requestUrl string, method string, accessToken string, request interface{}) ([]byte, error) {
 	timestamp := time.Now().Unix()
 
-	url, urlValues := meituan.Sign(requestUrl, s.AppId, s.AppSecret, timestamp, request)
+	url, urlValues := meituan.Sign(requestUrl, s.AppId, s.AppSecret, accessToken, timestamp, request)
 
 	var resp *http.Response
 	var err error

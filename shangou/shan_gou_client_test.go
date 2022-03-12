@@ -15,7 +15,7 @@ func Test_ShanGouClient(t *testing.T) {
 		AppSecret:  "a00ba58f000001aa697ab000006d52d",
 	}
 
-	bytes, err := shanGouClient.DoRequest("https://waimaiopen.meituan.com/api/v1/order/getOrderDaySeq", "GET", &GetOrderDaySeqRequest{AppPoiCode: "31号测试店"})
+	bytes, err := shanGouClient.DoRequest("https://waimaiopen.meituan.com/api/v1/order/getOrderDaySeq", "GET", "", &GetOrderDaySeqRequest{AppPoiCode: "31号测试店"})
 
 	fmt.Println(string(bytes), err)
 }

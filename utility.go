@@ -10,17 +10,25 @@ import (
 	"strings"
 )
 
-func Sign(requestUrl string, appId string, secret string, timestamp int64, o interface{}) (string, url.Values) {
+func Sign(requestUrl string, appId string, secret string, accessToken string, timestamp int64, o interface{}) (string, url.Values) {
 	urlValues := url.Values{}
 	sb := new(strings.Builder)
 	fields, params := GetStuctParamMap(o)
 
 	fields = append(fields, "app_id", "timestamp")
 
+	if accessToken != "" {
+		fields = append(fields, "access_token")
+	}
+
 	sort.Strings(fields)
 
 	params["app_id"] = appId
 	params["timestamp"] = timestamp
+
+	if accessToken != "" {
+		params["access_token"] = accessToken
+	}
 
 	sb.WriteString(requestUrl)
 	sb.WriteString("?")
@@ -39,7 +47,7 @@ func Sign(requestUrl string, appId string, secret string, timestamp int64, o int
 			fieldValue := fmt.Sprintf("%v", params[field])
 			sb.WriteString(fieldValue)
 
-			if field != "app_id" && field != "timestamp" {
+			if field != "app_id" && field != "timestamp" && (accessToken != "" && field != "access_token") {
 				urlValues.Set(field, fieldValue)
 			}
 		} else {
@@ -47,7 +55,7 @@ func Sign(requestUrl string, appId string, secret string, timestamp int64, o int
 				fieldValue := string(bytes)
 				sb.WriteString(fieldValue)
 
-				if field != "app_id" && field != "timestamp" {
+				if field != "app_id" && field != "timestamp" && (accessToken != "" && field != "access_token") {
 					urlValues.Set(field, fieldValue)
 				}
 			}
@@ -57,6 +65,10 @@ func Sign(requestUrl string, appId string, secret string, timestamp int64, o int
 	sb.WriteString(secret)
 
 	sig := fmt.Sprintf("%x", md5.Sum([]byte(sb.String())))
+
+	if accessToken != "" {
+		return fmt.Sprintf("%s?access_token=%v&app_id=%s&timestamp=%v&sig=%s", requestUrl, accessToken, appId, timestamp, sig), urlValues
+	}
 
 	return fmt.Sprintf("%s?app_id=%s&timestamp=%v&sig=%s", requestUrl, appId, timestamp, sig), urlValues
 }
