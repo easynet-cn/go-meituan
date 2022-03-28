@@ -55,7 +55,7 @@ func Sign(requestUrl string, appId string, secret string, accessToken string, ti
 				fieldValue := string(bytes)
 				sb.WriteString(fieldValue)
 
-				if field != "app_id" && field != "timestamp" && (accessToken != "" && field != "access_token") {
+				if field != "app_id" && field != "timestamp" && (accessToken != "" || field != "access_token") {
 					urlValues.Set(field, fieldValue)
 				}
 			}
