@@ -9,6 +9,6 @@ type MedicineCategory struct {
 	SecondCategoryCode string `json:"second_category_code"` //描述：二级分类code
 	SecondCategoryName string `json:"second_category_name"` //描述：二级分类名称
 	SecondSequence     int    `json:"second_sequence"`      //描述：二级分类在所属一级分类下的排序序号，数字越小，前端排位越靠前。
-	CTime              int    `json:"ctime"`                //描述：创建一级分类的时间，为10位秒级的时间戳。
-	UTime              int    `json:"utime"`                //描述：最近一次修改一级分类的时间，为10位秒级的时间戳。
+	CTime              int64  `json:"ctime"`                //描述：创建一级分类的时间，为10位秒级的时间戳。
+	UTime              int64  `json:"utime"`                //描述：最近一次修改一级分类的时间，为10位秒级的时间戳。
 }
