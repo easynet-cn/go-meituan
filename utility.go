@@ -74,10 +74,15 @@ func Sign(requestUrl string, appId string, secret string, accessToken string, ti
 }
 
 func GetStuctParamMap(o interface{}) ([]string, map[string]interface{}) {
+	if o == nil {
+		return make([]string, 0), make(map[string]interface{})
+	}
+
 	params := make(map[string]interface{})
 
 	t := reflect.TypeOf(o)
 	v := reflect.ValueOf(o)
+
 	elem := t.Elem()
 	fields := make([]string, 0, elem.NumField())
 
