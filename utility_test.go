@@ -13,14 +13,23 @@ func Test_Sign(t *testing.T) {
 	appPoiCode := "31号测试店"
 	timestamp := int64(1389751221)
 
-	_, urlValues := Sign(url, appId, secret, "", timestamp, &GetOrderDaySeqRequest{AppPoiCode: appPoiCode})
-	sig := urlValues.Get("sig")
+	url, urlValues := Sign(url, appId, secret, "", timestamp, &GetOrderDaySeqRequest{AppPoiCode: appPoiCode})
 
-	if sig != "dbb4d444d68596d03dbcb79a4e4a4e3f" {
-		t.Error(sig)
-	}
+	fmt.Println(url, urlValues)
+}
 
-	fmt.Println(sig)
+func Test_SignMapParam(t *testing.T) {
+	url := "https://waimaiopen.meituan.com/api/v1/order/getOrderDaySeq"
+	appId := "0000"
+	secret := "a00ba58f000001aa697ab000006d52d"
+	appPoiCode := "31号测试店"
+	timestamp := int64(1389751221)
+
+	url, urlValues := Sign(url, appId, secret, "", timestamp, map[string]interface{}{
+		"app_poi_code": appPoiCode,
+	})
+
+	fmt.Println(url, urlValues)
 }
 
 func Test_GetTag(t *testing.T) {
@@ -41,6 +50,13 @@ func Test_GetParams(t *testing.T) {
 	s := &A{Id: 1, Tags: []string{"t1", "t2"}, Name: &name}
 
 	fields, params := GetStuctParamMap(s)
+
+	fmt.Println(fields)
+	fmt.Println(params)
+}
+
+func Test_GetMapParams(t *testing.T) {
+	fields, params := GetStuctParamMap(map[string]interface{}{"id": 1, "name": "go"})
 
 	fmt.Println(fields)
 	fmt.Println(params)

@@ -81,6 +81,19 @@ func GetStuctParamMap(o interface{}) ([]string, map[string]interface{}) {
 	params := make(map[string]interface{})
 
 	t := reflect.TypeOf(o)
+
+	if t.Kind() == reflect.Map {
+		m := o.(map[string]interface{})
+		fields := make([]string, 0, len(m))
+
+		for k, v := range m {
+			params[k] = v
+			fields = append(fields, k)
+		}
+
+		return fields, params
+	}
+
 	v := reflect.ValueOf(o)
 
 	elem := t.Elem()
